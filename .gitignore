@@ -27,6 +27,5 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-/.idea/libraries/io_github_palexdev_materialfx.xml
-*.xml
-.idea/libraries/io_github_palexdev_materialfx.xml
+/.idea/libraries
+.idea/libraries
