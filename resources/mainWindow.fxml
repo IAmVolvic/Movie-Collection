@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import io.github.palexdev.materialfx.controls.MFXTableView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="GUI.MainController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainController">
+   <children>
+      <AnchorPane layoutX="783.0" layoutY="81.0" prefHeight="602.0" prefWidth="413.0">
+         <children>
+            <ImageView fitHeight="284.0" fitWidth="201.0" layoutX="29.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
+            <Label alignment="CENTER" layoutX="295.0" layoutY="47.0" prefHeight="53.0" prefWidth="154.0" text="Title">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="295.0" layoutY="132.0" prefHeight="53.0" prefWidth="154.0" text="Title">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <MFXTableView fx:id="categoriesTableView" layoutX="35.0" layoutY="66.0" prefHeight="602.0" prefWidth="237.0" />
+      <MFXTableView fx:id="moviesTableView" layoutX="314.0" layoutY="66.0" prefHeight="602.0" prefWidth="403.0" />
+      <MFXButton layoutX="35.0" layoutY="30.0" text="Add" />
+      <MFXButton layoutX="87.0" layoutY="30.0" text="Edit" />
+      <MFXButton layoutX="143.0" layoutY="30.0" text="Delete" />
+      <MFXButton layoutX="314.0" layoutY="30.0" text="Add" />
+      <MFXButton layoutX="369.0" layoutY="30.0" text="Delete" />
+   </children>
 </AnchorPane>
