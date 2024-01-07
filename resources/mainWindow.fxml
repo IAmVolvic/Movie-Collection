@@ -24,12 +24,12 @@
             </Label>
          </children>
       </AnchorPane>
-      <MFXTableView fx:id="categoriesTableView" layoutX="35.0" layoutY="66.0" prefHeight="602.0" prefWidth="237.0" />
-      <MFXTableView fx:id="moviesTableView" layoutX="314.0" layoutY="66.0" prefHeight="602.0" prefWidth="403.0" />
-      <MFXButton layoutX="35.0" layoutY="30.0" onAction="#testRunVideo" text="Add" />
-      <MFXButton layoutX="87.0" layoutY="30.0" text="Edit" />
-      <MFXButton layoutX="143.0" layoutY="30.0" text="Delete" />
-      <MFXButton layoutX="314.0" layoutY="30.0" text="Add" />
-      <MFXButton layoutX="369.0" layoutY="30.0" text="Delete" />
+      <MFXTableView fx:id="categoriesTableView" layoutX="35.0" layoutY="81.0" prefHeight="602.0" prefWidth="237.0" />
+      <MFXTableView fx:id="moviesTableView" layoutX="314.0" layoutY="81.0" prefHeight="602.0" prefWidth="403.0" />
+      <MFXButton layoutX="35.0" layoutY="22.0" onAction="#addCategoryHandler" text="Add" />
+      <MFXButton layoutX="87.0" layoutY="22.0" text="Edit" />
+      <MFXButton layoutX="143.0" layoutY="22.0" text="Delete" />
+      <MFXButton layoutX="314.0" layoutY="22.0" text="Add" />
+      <MFXButton layoutX="369.0" layoutY="22.0" text="Delete" />
    </children>
 </AnchorPane>
