@@ -41,4 +41,7 @@ public class BLLSingleton {
     public ArrayList<Category> getCategories(){
         return categories;
     }
+    public void addCategory(Category newCategory){
+        categories.add(newCategory);
+    }
 }

@@ -22,7 +22,10 @@ public class CategoryService {
     // Create a new category
     public Category createNewCategory(String categoryName) {
         try {
-            return insertCategory.newCategory(categoryName);
+            Category createCategory = insertCategory.newCategory(categoryName);
+            single.addCategory(createCategory);
+
+            return createCategory;
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer", e);
         }

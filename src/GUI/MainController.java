@@ -25,9 +25,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainController implements Initializable {
-    // BLL Services
-    private final CategoryService categoryService = new CategoryService();
-
     @FXML
     private MFXTableView<Category> categoriesTableView;
     @FXML
