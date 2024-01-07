@@ -1,4 +1,4 @@
-package APP_SETTINGS;
+package COMMON;
 
 public class AppConfig {
 }
