@@ -3,6 +3,7 @@ package GUI;
 import BE.Category;
 import BE.Movie;
 import BLL.CategoryService;
+import BLL.MovieService;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -25,6 +26,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class MainController implements Initializable {
+    // BLL Services
+    private final MovieService movieService = new MovieService();
+
     @FXML
     private MFXTableView<Category> categoriesTableView;
     @FXML
@@ -68,5 +72,15 @@ public class MainController implements Initializable {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("Add category");
         primaryStage.show();
+    }
+
+    public void Debug(ActionEvent actionEvent) {
+       Movie newMovie = movieService.createNewMovie("Test", "/abc");
+
+       System.out.println(newMovie.getId());
+       System.out.println(newMovie.getName());
+       System.out.println(newMovie.getRating());
+       System.out.println(newMovie.getMoviePath());
+       System.out.println(newMovie.getLastViewed());
     }
 }

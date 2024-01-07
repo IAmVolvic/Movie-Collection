@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainController">
+<AnchorPane prefHeight="720" prefWidth="1280" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.MainController">
    <children>
       <AnchorPane layoutX="783.0" layoutY="81.0" prefHeight="602.0" prefWidth="413.0">
          <children>
@@ -27,7 +27,7 @@
       <MFXTableView fx:id="categoriesTableView" layoutX="35.0" layoutY="81.0" prefHeight="602.0" prefWidth="237.0" />
       <MFXTableView fx:id="moviesTableView" layoutX="314.0" layoutY="81.0" prefHeight="602.0" prefWidth="403.0" />
       <MFXButton layoutX="35.0" layoutY="22.0" onAction="#addCategoryHandler" text="Add" />
-      <MFXButton layoutX="87.0" layoutY="22.0" text="Edit" />
+      <MFXButton layoutX="87.0" layoutY="22.0" onAction="#Debug" text="Edit" />
       <MFXButton layoutX="143.0" layoutY="22.0" text="Delete" />
       <MFXButton layoutX="314.0" layoutY="22.0" text="Add" />
       <MFXButton layoutX="369.0" layoutY="22.0" text="Delete" />
