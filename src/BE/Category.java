@@ -1,11 +1,16 @@
 package BE;
 
 public class Category {
-    private String name;
+    private int     categoryId;
+    private String  name;
 
-    public Category(String name) {
-        this.name = name;
+    public Category(int id, String name) {
+        this.categoryId = id;
+        this.name       = name;
     }
+
+
+    public int getId(){ return this.categoryId; }
 
     public String getName() {
         return name;

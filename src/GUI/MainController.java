@@ -2,6 +2,7 @@ package GUI;
 
 import BE.Category;
 import BE.Movie;
+import BLL.CategoryService;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
@@ -21,6 +22,9 @@ import java.io.IOException;
 
 
 public class MainController implements Initializable {
+    // BLL Services
+    private final CategoryService categoryService = new CategoryService();
+
     @FXML
     private MFXTableView<Category> categoriesTableView;
     @FXML
@@ -55,15 +59,27 @@ public class MainController implements Initializable {
     }
 
     public void testRunVideo(ActionEvent actionEvent) {
-        System.out.println("Running Video");
 
-        String videoPath = "resources/assets/testVideo.mp4";
 
-        try {
-            File videoFile = new File(videoPath);
-            Desktop.getDesktop().open(videoFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(categoryService.getCategories());
+
+
+//        try {
+////            categoryService.createNewCategory("New Category");
+//        } catch (RuntimeException e) {
+//            System.out.println(e.getMessage());
+//            System.out.println(e.getCause().getMessage());
+//        }
+
+//        System.out.println("Running Video");
+//
+//        String videoPath = "resources/assets/testVideo.mp4";
+//
+//        try {
+//            File videoFile = new File(videoPath);
+//            Desktop.getDesktop().open(videoFile);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
