@@ -21,5 +21,9 @@ public class Category {
         return name;
     }
 
-    public void setMovieIds(int movieId) {this.movieIds.add(movieId);}
+    public void setMovieIds(ArrayList<Integer> movieIds) {this.movieIds = movieIds;}
+
+    public ArrayList<Integer> getMovieIds(){
+        return movieIds;
+    }
 }
