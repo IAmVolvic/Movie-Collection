@@ -74,12 +74,9 @@ public class MainController implements Initializable {
     }
 
     public void Debug(ActionEvent actionEvent) {
-       Movie newMovie = movieService.createNewMovie("Test", "/abc");
+       for(Movie value : movieService.getMovies()){
+           System.out.println(value.getName());
+       }
 
-       System.out.println(newMovie.getId());
-       System.out.println(newMovie.getName());
-       System.out.println(newMovie.getRating());
-       System.out.println(newMovie.getMoviePath());
-       System.out.println(newMovie.getLastViewed());
     }
 }

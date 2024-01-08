@@ -5,6 +5,8 @@ import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.MovieLogic.InsertMovie;
 
+import java.util.ArrayList;
+
 
 public class MovieService {
     private final BLLSingleton single = BLLSingleton.getInstance();
@@ -23,4 +25,5 @@ public class MovieService {
         }
     }
 
+    public ArrayList<Movie> getMovies(){ return single.getMovies(); }
 }
