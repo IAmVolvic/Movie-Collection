@@ -2,11 +2,14 @@ package GUI;
 
 import BE.Category;
 import BE.Movie;
+import BLL.CategoryService;
 import BLL.MovieService;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,11 +31,14 @@ public class MainController implements Initializable {
     // BLL Services
     private final MovieService movieService = new MovieService();
 
+    private final CategoryService categoryService = new CategoryService();
+
     @FXML
     private MFXTableView<Category> categoriesTableView;
     @FXML
     private MFXTableView<Movie> moviesTableView;
 
+    private ObservableList<Category> categories = FXCollections.observableArrayList();
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupTableCategory();
@@ -47,6 +53,8 @@ public class MainController implements Initializable {
         categoriesTableView.getTableColumns().add(categoryColumn);
         categoriesTableView.getFilters().add(
                 new StringFilter<>("Category", Category::getName));
+        updateObservableListCategories();
+        categoriesTableView.setItems(categories);
     }
 
     private void setupTableMovies() {
@@ -77,6 +85,9 @@ public class MainController implements Initializable {
        for(Movie value : movieService.getMovies()){
            System.out.println(value.getName());
        }
+    }
 
+    public void updateObservableListCategories (){
+        categories.setAll(categoryService.getCategories());
     }
 }
