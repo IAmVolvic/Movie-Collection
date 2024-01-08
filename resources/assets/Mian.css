@@ -1,0 +1,15 @@
+.base {
+    -fx-background-color: #1D2D44;
+}
+
+.infoArea {
+    -fx-background-color: #0D1321;
+}
+
+.mfx-table-view * {
+    -fx-background-color: #0D1321;
+}
+
+.mfx-button {
+
+}

@@ -1,8 +1,12 @@
 package BLL;
 
 import BE.Category;
+import BE.Movie;
 import COMMON.ApplicationException;
+import DAL.CatMoviesLogic.SelectCatMovies;
 import DAL.CategoryLogic.SelectCategory;
+import DAL.MovieLogic.InsertMovie;
+import DAL.MovieLogic.SelectMovie;
 
 import java.util.ArrayList;
 
@@ -12,10 +16,13 @@ public class BLLSingleton {
 
     // Global States
     private ArrayList<Category> categories = new ArrayList<>();
+    private ArrayList<Movie> movies = new ArrayList<>();
+
 
     // DAL Ini
     private final SelectCategory selectCategory = new SelectCategory();
-
+    private final SelectMovie selectMovie = new SelectMovie();
+    private final SelectCatMovies selectCatMovies = new SelectCatMovies();
 
     // Private constructor to prevent instantiation from outside
     private BLLSingleton() {
@@ -27,6 +34,10 @@ public class BLLSingleton {
     private void categoriesInitialize() {
         try {
             categories = selectCategory.getCategoryDB();
+            movies = selectMovie.getMoviesDB();
+            for (Category c: categories) {
+                c.setMovieIds(selectCatMovies.getCatMovieListDB(c.getId()));
+            }
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer -> singleton", e);
         }
@@ -44,4 +55,6 @@ public class BLLSingleton {
     public void addCategory(Category newCategory){
         categories.add(newCategory);
     }
+
+    public ArrayList<Movie> getMovies() {return movies;}
 }

@@ -6,22 +6,32 @@ public class Movie {
     private int id;
     private String name;
     private double rating;
-    private String path;
+    private String moviePath;
     private String lastViewed;
 
+    public Movie(int setId, String setName, double setRating, String setPath, String setLastViewed){
+        this.id = setId;
+        this.name = setName;
+        this.rating = setRating;
+        this.moviePath = setPath;
+        this.lastViewed = setLastViewed;
+    }
+
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public double getRating() {
-        return rating;
+        return this.rating;
     }
 
+    public String getMoviePath() { return this.moviePath; }
+
     public String getLastViewed() {
-        return lastViewed;
+        return this.lastViewed;
     }
 }
