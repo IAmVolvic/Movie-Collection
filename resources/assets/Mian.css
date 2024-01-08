@@ -13,3 +13,14 @@
 .mfx-button {
 
 }
+.magicButton {
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+
+    -fx-background-color: white;
+    -fx-padding: 5px 20px 5px 20px;
+
+    -fx-border-color: red;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+}

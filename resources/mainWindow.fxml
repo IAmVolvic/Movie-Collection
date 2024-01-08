@@ -25,11 +25,11 @@
          </children>
       </AnchorPane>
       <MFXTableView fx:id="categoriesTableView" layoutX="35.0" layoutY="81.0" prefHeight="602.0" prefWidth="237.0" styleClass="infoArea" />
-      <MFXTableView fx:id="moviesTableView" layoutX="314.0" layoutY="81.0" prefHeight="602.0" prefWidth="403.0" styleClass="infoArea" />
-      <MFXButton layoutX="35.0" layoutY="22.0" onAction="#addCategoryHandler" text="Add" />
-      <MFXButton layoutX="87.0" layoutY="22.0" onAction="#Debug" text="Edit" />
-      <MFXButton layoutX="143.0" layoutY="22.0" text="Delete" />
-      <MFXButton layoutX="314.0" layoutY="22.0" text="Add" />
-      <MFXButton layoutX="369.0" layoutY="22.0" text="Delete" />
+      <MFXTableView fx:id="moviesTableView" layoutX="306.0" layoutY="81.0" prefHeight="602.0" prefWidth="403.0" styleClass="infoArea" />
+      <MFXButton layoutX="35.0" layoutY="22.0" onAction="#addCategoryHandler" styleClass="magicButton" text="Add" />
+      <MFXButton layoutX="111.0" layoutY="22.0" onAction="#Debug" styleClass="magicButton" text="Edit" />
+      <MFXButton layoutX="188.0" layoutY="22.0" styleClass="magicButton" text="Delete" />
+      <MFXButton layoutX="336.0" layoutY="25.0" styleClass="magicButton" text="Add" />
+      <MFXButton layoutX="424.0" layoutY="25.0" styleClass="magicButton" text="Delete" />
    </children>
 </AnchorPane>
