@@ -37,7 +37,6 @@ public class BLLSingleton {
             movies = selectMovie.getMoviesDB();
             for (Category c: categories) {
                 c.setMovieIds(selectCatMovies.getCatMovieListDB(c.getId()));
-                System.out.println("Category id"+c.getId()+"Movie id"+c.getMovieIds());
             }
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer -> singleton", e);

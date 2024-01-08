@@ -21,7 +21,6 @@ public class SelectCatMovies {
             ResultSet rs = stmt.executeQuery();
             while(rs.next()){
                 int id              = rs.getInt("movieId");
-                System.out.println("Movie id pulled: " +id+" for cat id: "+categoryId);
                 catMovieList.add(id);
             }
             return catMovieList;
