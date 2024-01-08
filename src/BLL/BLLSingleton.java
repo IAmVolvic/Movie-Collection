@@ -3,6 +3,7 @@ package BLL;
 import BE.Category;
 import BE.Movie;
 import COMMON.ApplicationException;
+import DAL.CatMoviesLogic.SelectCatMovies;
 import DAL.CategoryLogic.SelectCategory;
 import DAL.MovieLogic.InsertMovie;
 import DAL.MovieLogic.SelectMovie;
@@ -21,6 +22,7 @@ public class BLLSingleton {
     // DAL Ini
     private final SelectCategory selectCategory = new SelectCategory();
     private final SelectMovie selectMovie = new SelectMovie();
+    private final SelectCatMovies selectCatMovies = new SelectCatMovies();
 
     // Private constructor to prevent instantiation from outside
     private BLLSingleton() {
@@ -33,7 +35,10 @@ public class BLLSingleton {
         try {
             categories = selectCategory.getCategoryDB();
             movies = selectMovie.getMoviesDB();
-
+            for (Category c: categories) {
+                c.setMovieIds(selectCatMovies.getCatMovieListDB(c.getId()));
+                System.out.println("Category id"+c.getId()+"Movie id"+c.getMovieIds());
+            }
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer -> singleton", e);
         }
