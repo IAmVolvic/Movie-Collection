@@ -2,7 +2,6 @@ package GUI;
 
 import BE.Category;
 import BE.Movie;
-import BLL.CategoryService;
 import BLL.MovieService;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;

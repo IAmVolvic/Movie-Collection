@@ -27,6 +27,7 @@ public class BLLSingleton {
     private void categoriesInitialize() {
         try {
             categories = selectCategory.getCategoryDB();
+
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer -> singleton", e);
         }
