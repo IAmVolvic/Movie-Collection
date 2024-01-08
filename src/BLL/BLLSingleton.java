@@ -7,6 +7,8 @@ import DAL.CatMoviesLogic.SelectCatMovies;
 import DAL.CategoryLogic.SelectCategory;
 import DAL.MovieLogic.InsertMovie;
 import DAL.MovieLogic.SelectMovie;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -15,7 +17,7 @@ public class BLLSingleton {
     private static final BLLSingleton instance = new BLLSingleton();
 
     // Global States
-    private ArrayList<Category> categories = new ArrayList<>();
+    private ObservableList<Category> categories = FXCollections.observableArrayList();
     private ArrayList<Movie> movies = new ArrayList<>();
 
 
@@ -48,13 +50,19 @@ public class BLLSingleton {
         return instance;
     }
 
-
-    public ArrayList<Category> getCategories(){
+    public ObservableList<Category> getCategories(){
         return categories;
     }
     public void addCategory(Category newCategory){
         categories.add(newCategory);
     }
 
+    public void deleteCategory(Category category){
+        categories.remove(category);
+    }
+
     public ArrayList<Movie> getMovies() {return movies;}
+
+    private void categoriesObserver(){
+    }
 }

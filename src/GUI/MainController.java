@@ -16,6 +16,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableRow;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,9 +39,12 @@ public class MainController implements Initializable {
     @FXML
     private MFXTableView<Movie> moviesTableView;
 
+    //Instance variables
     private ObservableList<Category> categories = FXCollections.observableArrayList();
+    private Category selectedCategory;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        categories = categoryService.getCategories();
         setupTableCategory();
         setupTableMovies();
     }
@@ -53,7 +57,6 @@ public class MainController implements Initializable {
         categoriesTableView.getTableColumns().add(categoryColumn);
         categoriesTableView.getFilters().add(
                 new StringFilter<>("Category", Category::getName));
-        updateObservableListCategories();
         categoriesTableView.setItems(categories);
     }
 
@@ -86,8 +89,11 @@ public class MainController implements Initializable {
            System.out.println(value.getName());
        }
     }
-
-    public void updateObservableListCategories (){
-        categories.setAll(categoryService.getCategories());
+    @FXML
+    private void deleteCat(ActionEvent actionEvent) {
+        selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
+        if (selectedCategory!=null){
+            categoryService.deleteCategory(selectedCategory);
+        }
     }
 }
