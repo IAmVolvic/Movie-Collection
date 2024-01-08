@@ -85,7 +85,7 @@ public class MainController implements Initializable {
     }
 
     public void Debug(ActionEvent actionEvent) {
-       for(Movie value : movieService.getMovies()){
+       for(Category value : categoryService.getCategories()){
            System.out.println(value.getName());
        }
     }
@@ -95,5 +95,21 @@ public class MainController implements Initializable {
         if (selectedCategory!=null){
             categoryService.deleteCategory(selectedCategory);
         }
+    }
+    @FXML
+    private void editCategory(ActionEvent actionEvent) throws IOException {
+        selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditCategoryPopUp.fxml"));
+        Parent root = loader.load();
+        EditCategoryPopUpController controller = loader.getController();
+        controller.setTextField(selectedCategory,categoryService,this);
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Edit category");
+        primaryStage.show();
+    }
+
+    public void updateTable(){
+        categoriesTableView.update();
     }
 }

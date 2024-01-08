@@ -61,6 +61,15 @@ public class BLLSingleton {
         categories.remove(category);
     }
 
+    public void editCategory(String newCategory, int oldCategory){
+        for (Category c:categories) {
+            if (c.getId() == oldCategory){
+                c.setName(newCategory);
+                System.out.println(c.getName());
+            }
+        }
+    }
+
     public ArrayList<Movie> getMovies() {return movies;}
 
     private void categoriesObserver(){

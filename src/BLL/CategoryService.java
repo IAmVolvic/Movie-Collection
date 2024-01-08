@@ -3,6 +3,7 @@ package BLL;
 import BE.Category;
 import COMMON.ApplicationException;
 import DAL.CategoryLogic.DeleteCategory;
+import DAL.CategoryLogic.EditCategory;
 import DAL.CategoryLogic.InsertCategory;
 import javafx.collections.ObservableList;
 
@@ -12,6 +13,7 @@ public class CategoryService {
     private final BLLSingleton single = BLLSingleton.getInstance();
     private final InsertCategory insertCategory = new InsertCategory();
     private final DeleteCategory deleteCategory = new DeleteCategory();
+    private final EditCategory editCategory = new EditCategory();
 
 
     // Get all the categories
@@ -39,6 +41,15 @@ public class CategoryService {
             return deleteCategory.deleteCategory(category.getId());
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer", e);
+        }
+    }
+
+    public void changeCategory(String newCategory, int oldCategory){
+        try {
+            single.editCategory(newCategory,oldCategory);
+            editCategory.editCategory(newCategory,oldCategory);
+        } catch (ApplicationException e) {
+            throw new RuntimeException("Error in BLL layer",e);
         }
     }
 }
