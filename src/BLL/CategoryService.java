@@ -3,17 +3,15 @@ package BLL;
 import BE.Category;
 import COMMON.ApplicationException;
 import DAL.CategoryLogic.DeleteCategory;
-import DAL.CategoryLogic.EditCategory;
+import DAL.CategoryLogic.UpdateCategory;
 import DAL.CategoryLogic.InsertCategory;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
 
 public class CategoryService {
     private final BLLSingleton single = BLLSingleton.getInstance();
     private final InsertCategory insertCategory = new InsertCategory();
     private final DeleteCategory deleteCategory = new DeleteCategory();
-    private final EditCategory editCategory = new EditCategory();
+    private final UpdateCategory editCategory = new UpdateCategory();
 
 
     // Get all the categories
