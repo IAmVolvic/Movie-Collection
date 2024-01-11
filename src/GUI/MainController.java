@@ -5,6 +5,7 @@ import BE.Movie;
 import BLL.CategoryService;
 import BLL.MovieService;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.MFXTableRow;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import io.github.palexdev.materialfx.filter.StringFilter;
@@ -41,6 +42,7 @@ public class MainController implements Initializable {
 
     //Instance variables
     private ObservableList<Category> categories = FXCollections.observableArrayList();
+    private ObservableList<Movie> movies = FXCollections.observableArrayList();
     private Category selectedCategory;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -58,6 +60,25 @@ public class MainController implements Initializable {
         categoriesTableView.getFilters().add(
                 new StringFilter<>("Category", Category::getName));
         categoriesTableView.setItems(categories);
+        categoriesTableView.setTableRowFactory( tv -> { //doesnt work
+            selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
+            MFXTableRow<Category> row = new MFXTableRow<Category>(categoriesTableView, selectedCategory);
+            row.setOnMouseClicked(event -> {
+                System.out.println("works");
+                if (row.getData()!=null){
+                    movies.clear();
+                    for (int id:row.getData().getMovieIds()) {
+                        for (Movie m: movieService.getMovies()) {
+                            if (m.getId() == id){
+                                movies.add(m);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+            return row;
+        });
     }
 
     private void setupTableMovies() {
@@ -72,6 +93,7 @@ public class MainController implements Initializable {
         ratingColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Object>(Movie::getRating));
         lastViewed.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Object>(Movie::getLastViewed));
         moviesTableView.getTableColumns().addAll(idColumn, titleColumn, ratingColumn, lastViewed);
+        moviesTableView.setItems(movies);
     }
 
     @FXML

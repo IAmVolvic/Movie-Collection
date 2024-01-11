@@ -18,7 +18,7 @@ public class BLLSingleton {
 
     // Global States
     private ObservableList<Category> categories = FXCollections.observableArrayList();
-    private ArrayList<Movie> movies = new ArrayList<>();
+    private ObservableList<Movie> movies = FXCollections.observableArrayList();
 
 
     // DAL Ini
@@ -70,7 +70,7 @@ public class BLLSingleton {
         }
     }
 
-    public ArrayList<Movie> getMovies() {return movies;}
+    public ObservableList<Movie> getMovies() {return movies;}
 
     private void categoriesObserver(){
     }
