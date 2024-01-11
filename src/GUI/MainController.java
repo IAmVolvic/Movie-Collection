@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableRow;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -52,24 +53,27 @@ public class MainController implements Initializable {
     }
 
     private void setupTableCategory() {
-        MFXTableColumn<Category> categoryColumn = new MFXTableColumn<>("Category", false,
-                Comparator.comparing(Category::getName));
+        MFXTableColumn<Category> categoryColumn = new MFXTableColumn<>("Category", false, Comparator.comparing(Category::getName));
+
         categoryColumn.setRowCellFactory(category -> new MFXTableRowCell<>(Category::getName));
         categoryColumn.setPrefWidth(270);
+
         categoriesTableView.getTableColumns().add(categoryColumn);
-        categoriesTableView.getFilters().add(
-                new StringFilter<>("Category", Category::getName));
+
+        categoriesTableView.getFilters().add(new StringFilter<>("Category", Category::getName));
         categoriesTableView.setItems(categories);
+
+        selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
+
         categoriesTableView.setTableRowFactory( tv -> { //doesnt work
-            selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
-            MFXTableRow<Category> row = new MFXTableRow<Category>(categoriesTableView, selectedCategory);
-            row.setOnMouseClicked(event -> {
-                System.out.println("works");
+            MFXTableRow<Category> row = new MFXTableRow<>(categoriesTableView, tv);
+
+            row.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
                 if (row.getData()!=null){
                     movies.clear();
                     for (int id:row.getData().getMovieIds()) {
-                        for (Movie m: movieService.getMovies()) {
-                            if (m.getId() == id){
+                        for (Movie m : movieService.getMovies()) {
+                            if (m.getId() == id) {
                                 movies.add(m);
                                 break;
                             }
@@ -77,6 +81,8 @@ public class MainController implements Initializable {
                     }
                 }
             });
+
+
             return row;
         });
     }
