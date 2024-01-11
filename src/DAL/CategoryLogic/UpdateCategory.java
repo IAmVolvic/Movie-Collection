@@ -1,15 +1,13 @@
 package DAL.CategoryLogic;
 
-import BE.Category;
 import COMMON.ApplicationException;
 import DAL.ConnectionManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
-public class EditCategory {
+public class UpdateCategory {
     private final ConnectionManager cm = new ConnectionManager();
 
     public void editCategory(String newCategoryName, int oldCategoryId) throws ApplicationException {
