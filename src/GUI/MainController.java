@@ -83,6 +83,10 @@ public class MainController implements Initializable {
         categoryTableComponent.promptEditCategory();
     }
 
+    @FXML
+    private void deleteCat(ActionEvent actionEvent) {
+        categoryTableComponent.deleteCategory();
+    }
 
 
 
@@ -90,12 +94,5 @@ public class MainController implements Initializable {
        for(Category value : categoryService.getCategories()){
            System.out.println(value.getName());
        }
-    }
-    @FXML
-    private void deleteCat(ActionEvent actionEvent) {
-        selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
-        if (selectedCategory!=null){
-            categoryService.deleteCategory(selectedCategory);
-        }
     }
 }

@@ -74,8 +74,6 @@ public class CategoryTable {
         primaryStage.show();
     }
 
-
-
     public void promptEditCategory() throws IOException {
         Stage primaryStage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/EditCategoryPopUp.fxml"));
@@ -87,6 +85,13 @@ public class CategoryTable {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("Edit category");
         primaryStage.show();
+    }
+
+
+    public void deleteCategory() {
+        if (categoriesTableView.getSelectionModel().getSelectedValue() != null){
+            categoryService.deleteCategory(categoriesTableView.getSelectionModel().getSelectedValue());
+        }
     }
 
 }
