@@ -4,6 +4,8 @@ import BE.Category;
 import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.ConnectionManager;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,9 +15,9 @@ import java.util.ArrayList;
 
 public class SelectMovie {
     private final ConnectionManager cm = new ConnectionManager();
-    private final ArrayList<Movie> movieList = new ArrayList<>();
+    private final ObservableList<Movie> movieList = FXCollections.observableArrayList();
 
-    public ArrayList<Movie> getMoviesDB() throws ApplicationException {
+    public ObservableList<Movie> getMoviesDB() throws ApplicationException {
         try( Connection con = cm.getConnection() )
         {
             String sql = "SELECT * FROM movie";

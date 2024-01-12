@@ -29,4 +29,5 @@ bin/
 .DS_Store
 /.idea/libraries
 .idea/libraries
+
 /resources/assets/testVideo.mp4

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="GUI.EditCategoryPopUpController"
+            prefHeight="130.0" prefWidth="263.0">
+    <children>
+        <TextField fx:id="categoryNamelbl" layoutX="75.0" layoutY="39.0" />
+        <Label layoutX="21.0" layoutY="38.0" prefHeight="26.0" prefWidth="45.0" text="Name:" />
+        <MFXButton layoutX="186.0" layoutY="81.0" onAction="#editCategoryAccept" text="Accept" />
+    </children>
+</AnchorPane>

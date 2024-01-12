@@ -4,6 +4,7 @@ package BLL;
 import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.MovieLogic.InsertMovie;
+import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 
@@ -25,5 +26,5 @@ public class MovieService {
         }
     }
 
-    public ArrayList<Movie> getMovies(){ return single.getMovies(); }
+    public ObservableList<Movie> getMovies(){ return single.getMovies(); }
 }
