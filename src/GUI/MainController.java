@@ -48,6 +48,7 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         categories = categoryService.getCategories();
+        movies.add(null);
         setupTableCategory();
         setupTableMovies();
     }
@@ -60,7 +61,6 @@ public class MainController implements Initializable {
 
         categoriesTableView.getTableColumns().add(categoryColumn);
 
-        categoriesTableView.getFilters().add(new StringFilter<>("Category", Category::getName));
         categoriesTableView.setItems(categories);
 
         selectedCategory = categoriesTableView.getSelectionModel().getSelectedValue();
@@ -79,6 +79,7 @@ public class MainController implements Initializable {
                             }
                         }
                     }
+                    moviesTableView.update();
                 }
             });
 
@@ -94,11 +95,14 @@ public class MainController implements Initializable {
                 Comparator.comparing(Movie::getRating));
         MFXTableColumn<Movie> lastViewed = new MFXTableColumn<>("Last Viewed", false,
                 Comparator.comparing(Movie::getLastViewed));
-        idColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Object>(Movie::getId));
-        titleColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Object>(Movie::getName));
-        ratingColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Object>(Movie::getRating));
-        lastViewed.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Object>(Movie::getLastViewed));
-        moviesTableView.getTableColumns().addAll(idColumn, titleColumn, ratingColumn, lastViewed);
+        idColumn.setRowCellFactory(movie -> new MFXTableRowCell<>(Movie::getId));
+        titleColumn.setRowCellFactory(movie -> new MFXTableRowCell<>(Movie::getName));
+        ratingColumn.setRowCellFactory(movie -> new MFXTableRowCell<>(Movie::getRating));
+        lastViewed.setRowCellFactory(movie -> new MFXTableRowCell<>(Movie::getLastViewed));
+        moviesTableView.getTableColumns().add(idColumn);
+        moviesTableView.getTableColumns().add(titleColumn);
+        moviesTableView.getTableColumns().add(ratingColumn);
+        moviesTableView.getTableColumns().add(lastViewed);
         moviesTableView.setItems(movies);
     }
 
