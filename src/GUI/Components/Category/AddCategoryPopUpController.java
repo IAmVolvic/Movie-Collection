@@ -1,4 +1,4 @@
-package GUI;
+package GUI.Components.Category;
 
 import BE.Category;
 import BLL.CategoryService;
