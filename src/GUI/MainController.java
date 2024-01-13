@@ -39,7 +39,8 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         movieTableComponent.ini(
                 movieService,
-                moviesTableView
+                moviesTableView,
+                categoriesTableView
         );
 
         categoryTableComponent.ini(
@@ -69,10 +70,9 @@ public class MainController implements Initializable {
     }
 
 
-
-    public void Debug(ActionEvent aE) {
-       for(Category value : categoryService.getCategories()){
-           System.out.println(value.getName());
-       }
+    // Movie Service Methods
+    @FXML
+    public void addMoviePromp(ActionEvent aE) throws IOException {
+        movieTableComponent.promptAddMovie();
     }
 }

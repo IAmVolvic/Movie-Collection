@@ -1,9 +1,11 @@
 package BLL;
 
 
+import BE.Category;
 import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.MovieLogic.InsertMovie;
+import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.collections.ObservableList;
 
 
@@ -23,6 +25,9 @@ public class MovieService {
             throw new RuntimeException("Error in BLL layer", e);
         }
     }
+
+    // Add connection between move and category
+    
 
     public ObservableList<Movie> getMovies(){ return single.getMovies(); }
 }
