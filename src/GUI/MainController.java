@@ -6,6 +6,7 @@ import BLL.CategoryService;
 import BLL.MovieService;
 import GUI.Components.Category.CategoryTable;
 import GUI.Components.Category.EditCategoryPopUpController;
+import GUI.Components.Movies.MovieTable;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableRow;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -32,8 +33,11 @@ public class MainController implements Initializable {
     private final MovieService movieService = new MovieService();
     private final CategoryService categoryService = new CategoryService();
 
+
     // Components
     private final CategoryTable categoryTableComponent = new CategoryTable();
+    private final MovieTable movieTableComponent = new MovieTable();
+
 
     // FXML Elements
     @FXML
@@ -41,56 +45,46 @@ public class MainController implements Initializable {
     @FXML
     private MFXTableView<Movie> moviesTableView;
 
+
     //Instance variables
-    private ObservableList<Movie> movies = FXCollections.observableArrayList();
-    private Category selectedCategory;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        categoryTableComponent.ini(
-                categoryService,
-                categoriesTableView
+        movieTableComponent.ini(
+                movieService,
+                moviesTableView
         );
 
-        setupTableMovies();
-    }
-
-
-    private void setupTableMovies() {
-        MFXTableColumn<Movie> idColumn = new MFXTableColumn<>("Id", false, Comparator.comparing(Movie::getId));
-        MFXTableColumn<Movie> titleColumn = new MFXTableColumn<>("Title", false, Comparator.comparing(Movie::getName));
-        MFXTableColumn<Movie> ratingColumn = new MFXTableColumn<>("Rating", false, Comparator.comparing(Movie::getRating));
-        MFXTableColumn<Movie> lastViewed = new MFXTableColumn<>("Last Viewed", false, Comparator.comparing(Movie::getLastViewed));
-
-        idColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Integer>(Movie::getId));
-        titleColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, String>(Movie::getName));
-        ratingColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Double>(Movie::getRating));
-        lastViewed.setRowCellFactory(movie -> new MFXTableRowCell<Movie, String>(Movie::getLastViewed));
-
-        moviesTableView.getTableColumns().addAll(idColumn, titleColumn, ratingColumn, lastViewed);
-        moviesTableView.setItems(movieService.getMovies());
+        categoryTableComponent.ini(
+                categoryService,
+                categoriesTableView,
+                movieTableComponent
+        );
     }
 
 
 
+
+    // Category Service Methods
     @FXML
-    private void addCategoryHandler(ActionEvent actionEvent) throws IOException {
+    private void addCategoryHandler(ActionEvent aE) throws IOException {
         categoryTableComponent.promptAddCategory();
     }
 
     @FXML
-    private void editCategory(ActionEvent actionEvent) throws IOException {
+    private void editCategory(ActionEvent aE) throws IOException {
         categoryTableComponent.promptEditCategory();
     }
 
     @FXML
-    private void deleteCat(ActionEvent actionEvent) {
+    private void deleteCat(ActionEvent aE) {
         categoryTableComponent.deleteCategory();
     }
 
 
 
-    public void Debug(ActionEvent actionEvent) {
+    public void Debug(ActionEvent aE) {
        for(Category value : categoryService.getCategories()){
            System.out.println(value.getName());
        }

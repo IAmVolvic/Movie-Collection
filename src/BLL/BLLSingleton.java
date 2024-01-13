@@ -72,6 +72,5 @@ public class BLLSingleton {
 
     public ObservableList<Movie> getMovies() {return movies;}
 
-    private void categoriesObserver(){
-    }
+    private void categoriesObserver(){}
 }

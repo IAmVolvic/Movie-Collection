@@ -1,6 +1,5 @@
 package DAL.MovieLogic;
 
-import BE.Category;
 import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.ConnectionManager;
@@ -11,7 +10,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class SelectMovie {
     private final ConnectionManager cm = new ConnectionManager();
