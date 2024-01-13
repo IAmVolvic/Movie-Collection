@@ -1,13 +1,18 @@
 package GUI.Components.Movies;
 
+
 import BE.Movie;
 import BLL.MovieService;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
+import io.github.palexdev.materialfx.controls.MFXTableRow;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
+import io.github.palexdev.materialfx.filter.DoubleFilter;
+import io.github.palexdev.materialfx.filter.StringFilter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 
 import java.util.Comparator;
 
@@ -53,10 +58,32 @@ public class MovieTable {
         ratingColumn.setRowCellFactory(movie -> new MFXTableRowCell<Movie, Double>(Movie::getRating));
         lastViewed.setRowCellFactory(movie -> new MFXTableRowCell<Movie, String>(Movie::getLastViewed));
 
+        movieTableView.getFilters().add(new StringFilter<>("Title", Movie::getName));
+        movieTableView.getFilters().add(new DoubleFilter<>("Rating", Movie::getRating));
+        movieTableView.getFilters().add(new StringFilter<>("Last Viewed", Movie::getLastViewed));
+
         movieTableView.getTableColumns().add(idColumn);
         movieTableView.getTableColumns().add(titleColumn);
         movieTableView.getTableColumns().add(ratingColumn);
         movieTableView.getTableColumns().add(lastViewed);
         movieTableView.setItems(movies);
+
+
+        movieTableView.setTableRowFactory( tv -> { //doesnt work
+            MFXTableRow<Movie> row = new MFXTableRow<>(movieTableView, tv);
+
+            row.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+                onRowClick(row);
+            });
+
+            return row;
+        });
     }
+
+    private void onRowClick(MFXTableRow<Movie> row){
+        if (row.getData()!=null){
+            System.out.println("Works");
+        }
+    }
+
 }

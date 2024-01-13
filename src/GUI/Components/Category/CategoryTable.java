@@ -56,14 +56,14 @@ public class CategoryTable {
             MFXTableRow<Category> row = new MFXTableRow<>(categoriesTableView, tv);
 
             row.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-                onRowCategoryClick(row);
+                onRowClick(row);
             });
 
             return row;
         });
     }
 
-    private void onRowCategoryClick(MFXTableRow<Category> row){
+    private void onRowClick(MFXTableRow<Category> row){
         if (row.getData()!=null){
             movieTable.getList().clear();
 

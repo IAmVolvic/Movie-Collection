@@ -64,7 +64,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void deleteCat(ActionEvent aE) {
+    private void deleteCategory(ActionEvent aE) {
         categoryTableComponent.deleteCategory();
     }
 
