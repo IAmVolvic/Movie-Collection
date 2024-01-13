@@ -39,7 +39,6 @@ public class CategoryTable {
         categories = iniCategoriesService.getCategories();
         categoriesTableView = tableView;
         movieTable = movieTableComponent;
-
         setupTable();
     }
 
@@ -64,7 +63,6 @@ public class CategoryTable {
         });
     }
 
-
     private void onRowCategoryClick(MFXTableRow<Category> row){
         if (row.getData()!=null){
             movieTable.getList().clear();
@@ -81,6 +79,7 @@ public class CategoryTable {
             movieTable.getTable().update();
         }
     }
+
 
 
     public void promptAddCategory() throws IOException {
@@ -104,7 +103,6 @@ public class CategoryTable {
         primaryStage.setTitle("Edit category");
         primaryStage.show();
     }
-
 
     public void deleteCategory() {
         if (categoriesTableView.getSelectionModel().getSelectedValue() != null){

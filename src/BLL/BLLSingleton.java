@@ -5,12 +5,10 @@ import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.CatMoviesLogic.SelectCatMovies;
 import DAL.CategoryLogic.SelectCategory;
-import DAL.MovieLogic.InsertMovie;
 import DAL.MovieLogic.SelectMovie;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
 
 public class BLLSingleton {
     // Single instance of GUISingleton

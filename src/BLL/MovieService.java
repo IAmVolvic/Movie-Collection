@@ -6,8 +6,6 @@ import COMMON.ApplicationException;
 import DAL.MovieLogic.InsertMovie;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 
 public class MovieService {
     private final BLLSingleton single = BLLSingleton.getInstance();

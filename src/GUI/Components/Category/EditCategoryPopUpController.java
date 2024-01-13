@@ -1,9 +1,7 @@
 package GUI.Components.Category;
 
 import BE.Category;
-import BLL.BLLSingleton;
 import BLL.CategoryService;
-import GUI.MainController;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,6 +1,5 @@
 package DAL.CatMoviesLogic;
 
-import BE.Category;
 import COMMON.ApplicationException;
 import DAL.ConnectionManager;
 
