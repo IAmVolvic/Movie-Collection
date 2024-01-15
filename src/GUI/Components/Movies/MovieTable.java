@@ -71,7 +71,6 @@ public class MovieTable {
 
 
     private void recreateTable() {
-        System.out.println(movieService.getMovies().size());
         // Ignore
         movieTableView.getItems().clear();
 

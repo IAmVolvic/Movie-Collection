@@ -13,8 +13,6 @@ public class InsertCat {
     public void newCat(int movieId, int categoryId) throws ApplicationException {
         try(Connection con = cm.getConnection())
         {
-            System.out.println(categoryId + " " + movieId);
-
             String sql = "INSERT INTO catMovie(categoryId, movieId) VALUES (?, ?)";
             PreparedStatement pt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pt.setInt(1, categoryId);

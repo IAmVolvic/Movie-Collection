@@ -72,7 +72,6 @@ public class BLLSingleton {
         for (Category c:categories) {
             if (c.getId() == oldCategory){
                 c.setName(newCategory);
-                System.out.println(c.getName());
             }
         }
     }
