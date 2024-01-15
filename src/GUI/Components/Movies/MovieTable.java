@@ -71,6 +71,8 @@ public class MovieTable {
 
 
     private void recreateTable() {
+        if (selectedCategory == null) { return; }
+        
         // Ignore
         movieTableView.getItems().clear();
 
@@ -176,6 +178,5 @@ public class MovieTable {
             movieInfoController.setMoviePath(row.getData().getMoviePath());
         }
     }
-
 
 }

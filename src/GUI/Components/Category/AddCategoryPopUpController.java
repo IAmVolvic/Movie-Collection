@@ -2,6 +2,7 @@ package GUI.Components.Category;
 
 import BE.Category;
 import BLL.CategoryService;
+import GUI.Components.ErrorPopUpController;
 import GUI.Components.Movies.MovieTable;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.collections.FXCollections;
@@ -11,9 +12,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class AddCategoryPopUpController {
     // BLL Services
     private CategoryService categoryService;
+
+    // GUI Services
+    private final ErrorPopUpController errorPopUp = new ErrorPopUpController();
 
     // FXML Elements
     @FXML
@@ -29,7 +35,7 @@ public class AddCategoryPopUpController {
 
 
     @FXML
-    private void addCategoryAccept(ActionEvent actionEvent) {
+    private void addCategoryAccept(ActionEvent actionEvent) throws IOException {
         if (!categoryNameInput.getText().isEmpty()){
             categoryService.createNewCategory(categoryNameInput.getText());
 
@@ -41,6 +47,11 @@ public class AddCategoryPopUpController {
 
             Stage stage = (Stage) categoryNameInput.getScene().getWindow();
             stage.close();
+        }else{
+            errorPopUp.prompError(
+                    "Something went wrong, please check the following \n" +
+                            "Make sure you a category name"
+            );
         }
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<AnchorPane fx:id="body" prefHeight="231.0" prefWidth="442.0" stylesheets="@Assets/main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Components.ErrorPopUpController">
+    <children>
+      <Text layoutX="114.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Something Went Wrong">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ScrollPane hbarPolicy="NEVER" layoutX="16.0" layoutY="54.0" prefHeight="124.0" prefWidth="410.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="410.0">
+               <children>
+                  <TextFlow prefHeight="324.0" prefWidth="395.0">
+                     <children>
+                        <Text fx:id="errorMessage" strokeType="OUTSIDE" strokeWidth="0.0" text="Hehehe" wrappingWidth="444.13671875" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </TextFlow>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <MFXButton layoutX="381.0" layoutY="192.0" onAction="#closeBtn" rippleColor="#ff7171" style="-fx-background-color: #da3e3e;" text="Close" textFill="WHITE" />
+    </children>
+</AnchorPane>
