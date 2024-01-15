@@ -5,7 +5,8 @@ import COMMON.ApplicationException;
 import DAL.CategoryLogic.DeleteCategory;
 import DAL.CategoryLogic.UpdateCategory;
 import DAL.CategoryLogic.InsertCategory;
-import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 public class CategoryService {
     private final BLLSingleton single = BLLSingleton.getInstance();
@@ -13,9 +14,8 @@ public class CategoryService {
     private final DeleteCategory deleteCategory = new DeleteCategory();
     private final UpdateCategory editCategory = new UpdateCategory();
 
-
     // Get all the categories
-    public ObservableList<Category> getCategories(){
+    public ArrayList<Category> getCategories(){
         return single.getCategories();
     }
 
@@ -25,6 +25,7 @@ public class CategoryService {
         try {
             Category createCategory = insertCategory.newCategory(categoryName);
             single.addCategory(createCategory);
+
             return createCategory;
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer", e);
@@ -35,6 +36,8 @@ public class CategoryService {
     // Delete a new category
     public Boolean deleteCategory(Category category) {
         try {
+            single.deleteMoviesAndCategory(category);
+
             single.deleteCategory(category);
             return deleteCategory.deleteCategory(category.getId());
         } catch (ApplicationException e) {

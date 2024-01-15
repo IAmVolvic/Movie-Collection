@@ -3,6 +3,8 @@ package GUI.Components.Category;
 import BE.Category;
 import BLL.CategoryService;
 import io.github.palexdev.materialfx.controls.MFXTableView;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -24,6 +26,11 @@ public class EditCategoryPopUpController {
     public void editCategoryAccept(ActionEvent actionEvent) {
         if (categoryNamelbl.getText()!=null){
             categoryService.changeCategory(categoryNamelbl.getText(), this.selectedRow.getId());
+
+            ObservableList<Category> newCategoryList = FXCollections.observableArrayList();
+            newCategoryList.addAll(categoryService.getCategories());
+
+            categoriesTableView.setItems(newCategoryList);
             categoriesTableView.update();
 
             Stage stage = (Stage) categoryNamelbl.getScene().getWindow();

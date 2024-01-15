@@ -12,7 +12,7 @@ import java.util.Calendar;
 public class InsertMovie {
     private final ConnectionManager cm = new ConnectionManager();
 
-    public Movie newMovie(String movieName, String filePath) throws ApplicationException {
+    public Movie newMovie(String movieName, String filePath, Double movieRating) throws ApplicationException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Calendar cal = Calendar.getInstance();
 
@@ -22,7 +22,7 @@ public class InsertMovie {
             String sql = "INSERT INTO movie(name, rating, filePath, lastViewed) VALUES (?, ?, ?, ?)";
             PreparedStatement pt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             pt.setString(1, movieName);
-            pt.setDouble(2, 0.0);
+            pt.setDouble(2, movieRating);
             pt.setString(3, filePath);
             pt.setString(4, dateFormat.format(cal.getTime()));
             int affectedRows = pt.executeUpdate();
@@ -33,7 +33,7 @@ public class InsertMovie {
 
             try (ResultSet generatedKeys = pt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    return new Movie(generatedKeys.getInt(1), movieName, 0.0, filePath, dateFormat.format(cal.getTime()));
+                    return new Movie(generatedKeys.getInt(1), movieName, movieRating, filePath, dateFormat.format(cal.getTime()));
                 }
                 else {
                     throw new ApplicationException("Creating movie failed, no ID obtained.");

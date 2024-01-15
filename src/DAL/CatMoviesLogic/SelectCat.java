@@ -6,7 +6,7 @@ import DAL.ConnectionManager;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SelectCatMovies {
+public class SelectCat {
     private final ConnectionManager cm = new ConnectionManager();
 
 

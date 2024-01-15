@@ -4,7 +4,9 @@ package GUI.Components.Movies;
 import BE.Category;
 import BE.Movie;
 import BLL.MovieService;
-import GUI.Components.Category.EditCategoryPopUpController;
+import GUI.Components.Category.CategoryTable;
+import GUI.Components.ConfirmPopUpController;
+import GUI.Components.MovieInfoController;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableRow;
 import io.github.palexdev.materialfx.controls.MFXTableView;
@@ -26,47 +28,23 @@ import java.util.Comparator;
 public class MovieTable {
     // Services
     private MovieService movieService;
+    private Category selectedCategory;
+    private MovieInfoController movieInfoController;
+
 
     // FXM Elements
     @FXML
     private MFXTableView<Movie> movieTableView;
-    @FXML
-    private MFXTableView<Category> categoryTableView;
 
     // Tables
-    private ObservableList<Movie> movies = FXCollections.observableArrayList();
+    private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
-    public void ini(MovieService iniMovieService, MFXTableView<Movie> tableView, MFXTableView<Category> tableViewCat){
+    public void ini(MovieService iniMovieService, MFXTableView<Movie> tableView, MovieInfoController mIC){
         movieService = iniMovieService;
-        movies.addAll(movieService.getMovies());
         movieTableView = tableView;
-        categoryTableView = tableViewCat;
+        movieInfoController = mIC;
+
         setupTable();
-    }
-
-    public MFXTableView<Movie> getTable(){
-        return this.movieTableView;
-    }
-
-    public ObservableList<Movie> getList(){
-        return this.movies;
-    }
-
-    public MovieService getMovieService() {
-        return this.movieService;
-    }
-
-
-    public void promptAddMovie() throws IOException {
-        Stage primaryStage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddMoviePopUp.fxml"));
-        Parent root = loader.load();
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setTitle("Add Movie");
-        AddMoviePopUpController controller = loader.getController();
-        controller.ini(categoryTableView);
-
-        primaryStage.show();
     }
 
 
@@ -89,8 +67,27 @@ public class MovieTable {
         movieTableView.getTableColumns().add(titleColumn);
         movieTableView.getTableColumns().add(ratingColumn);
         movieTableView.getTableColumns().add(lastViewed);
-        movieTableView.setItems(movies);
+    }
 
+
+    private void recreateTable() {
+        System.out.println(movieService.getMovies().size());
+        // Ignore
+        movieTableView.getItems().clear();
+
+        ObservableList<Movie> newMovieList = FXCollections.observableArrayList();
+
+        //Set the selected movie table
+        for (Movie m : movieService.getMovies()) {
+            for (int id : selectedCategory.getMovieIds()) {
+                if (m.getId() == id) {
+                    newMovieList.add(m);
+                    break;
+                }
+            }
+        }
+
+        movieTableView.getItems().addAll(newMovieList);
 
         movieTableView.setTableRowFactory( tv -> { //doesnt work
             MFXTableRow<Movie> row = new MFXTableRow<>(movieTableView, tv);
@@ -101,10 +98,71 @@ public class MovieTable {
 
             return row;
         });
+
+        movies.addAll(newMovieList);
+
+        if (!movieTableView.getItems().isEmpty()) {
+            Movie firstRow = movieTableView.getItems().get(0);
+
+            movieInfoController.setTitle(firstRow.getName());
+            movieInfoController.setRating( String.valueOf(firstRow.getRating()) );
+            movieInfoController.setMoviePath(firstRow.getMoviePath());
+        }
     }
 
+
+    public void setSelectedCategory(Category selectedCategory) {
+        this.selectedCategory = selectedCategory;
+        recreateTable();
+    }
+
+    public void clearTable() {
+        movieTableView.getItems().clear();
+    }
+
+
+    public void promptAddMovie() throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddMoviePopUp.fxml"));
+        Parent root = loader.load();
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Add Movie");
+        AddMoviePopUpController controller = loader.getController();
+        controller.init(this::recreateTable, selectedCategory);
+
+        primaryStage.show();
+    }
+
+
+    public void promptDeleteMovie() throws IOException {
+        Stage primaryStage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ConfirmPopUp.fxml"));
+        Parent root = loader.load();
+        ConfirmPopUpController controller = loader.getController();
+
+        controller.init(this::deleteMovie);
+
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setTitle("Delete movie");
+        primaryStage.show();
+    }
+
+
+    private void deleteMovie() {
+        if (selectedCategory != null && movieTableView.getSelectionModel().getSelectedValue() != null){
+            movieService.deleteMove(selectedCategory, movieTableView.getSelectionModel().getSelectedValue());
+            recreateTable();
+        }
+    }
+
+
+
     private void onRowClick(MFXTableRow<Movie> row){
-        if (row.getData()!=null){}
+        if (row.getData()!=null){
+            movieInfoController.setTitle(row.getData().getName());
+            movieInfoController.setRating( String.valueOf(row.getData().getRating()) );
+            movieInfoController.setMoviePath(row.getData().getMoviePath());
+        }
     }
 
 
