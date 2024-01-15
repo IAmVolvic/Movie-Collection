@@ -31,6 +31,7 @@
       <MFXButton layoutX="87.0" layoutY="22.0" onAction="#editCategory" text="Edit" />
       <MFXButton layoutX="143.0" layoutY="22.0" onAction="#deleteCategory" text="Delete" />
       <MFXButton layoutX="314.0" layoutY="22.0" onAction="#addMoviePrompt" text="Add" />
-      <MFXButton layoutX="369.0" layoutY="22.0" onAction="#deleteMovie" text="Delete" />
+      <MFXButton layoutX="417.0" layoutY="22.0" onAction="#deleteMovie" text="Delete" />
+      <MFXButton layoutX="366.0" layoutY="22.0" onAction="#editMoviePrompt" text="Edit" />
    </children>
 </AnchorPane>

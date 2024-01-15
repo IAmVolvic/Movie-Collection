@@ -96,4 +96,9 @@ public class MainController implements Initializable {
     private void playMovie(ActionEvent actionEvent) {
         movieInfoController.playMovie();
     }
+
+    @FXML
+    private void editMoviePrompt(ActionEvent actionEvent) throws IOException {
+        movieTableComponent.promptEditMovie();
+    }
 }

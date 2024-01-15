@@ -30,6 +30,14 @@ public class Movie {
 
     public String getMoviePath() { return this.moviePath; }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
     public String getLastViewed() {
         return this.lastViewed;
     }

@@ -76,6 +76,14 @@ public class BLLSingleton {
         }
     }
 
+    public void editMovie(Movie oldMovie, Movie newMovie){
+        for (Movie m: movies){
+            if (m == oldMovie){
+                m.setName(newMovie.getName());
+                m.setRating(newMovie.getRating());
+            }
+        }
+    }
 
     // Movie Services
     public ArrayList<Movie> getMovies() {return movies;}

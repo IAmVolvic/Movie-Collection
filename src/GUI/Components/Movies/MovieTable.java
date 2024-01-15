@@ -146,6 +146,19 @@ public class MovieTable {
         primaryStage.show();
     }
 
+    public void promptEditMovie() throws IOException {
+        if (movieTableView.getSelectionModel().getSelectedValue()!=null){
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddMoviePopUp.fxml"));
+            Parent root = loader.load();
+            AddMoviePopUpController controller = loader.getController();
+            controller.editMovieInit( this::recreateTable,movieTableView.getSelectionModel().getSelectedValue());
+            stage.setScene(new Scene(root));
+            stage.setTitle("Edit Movie");
+            stage.show();
+        }
+    }
+
 
     private void deleteMovie() {
         if (selectedCategory != null && movieTableView.getSelectionModel().getSelectedValue() != null){
