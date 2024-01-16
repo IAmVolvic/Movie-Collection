@@ -37,4 +37,17 @@ public class DeleteCat {
             throw new ApplicationException("Error in DAL layer", e);
         }
     }
+
+    public void removeCatMovieRelation(int categoryId, int movieId) throws ApplicationException {
+        try(Connection con = cm.getConnection())
+        {
+            String sql = "DELETE FROM catMovie WHERE categoryId = ? AND movieId = ?";
+            PreparedStatement pt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pt.setInt(1, categoryId);
+            pt.setInt(2,movieId);
+            pt.executeQuery();
+        } catch (SQLException e) {
+            throw new ApplicationException("Error in DAL layer", e);
+        }
+    }
 }

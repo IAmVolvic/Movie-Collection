@@ -3,6 +3,7 @@ package GUI.Components.Movies;
 
 import BE.Category;
 import BE.Movie;
+import BLL.CategoryService;
 import BLL.MovieService;
 import GUI.Components.Category.CategoryTable;
 import GUI.Components.ConfirmPopUpController;
@@ -30,6 +31,7 @@ public class MovieTable {
     private MovieService movieService;
     private Category selectedCategory;
     private MovieInfoController movieInfoController;
+    private CategoryService categoryService;
 
 
     // FXM Elements
@@ -39,11 +41,11 @@ public class MovieTable {
     // Tables
     private final ObservableList<Movie> movies = FXCollections.observableArrayList();
 
-    public void ini(MovieService iniMovieService, MFXTableView<Movie> tableView, MovieInfoController mIC){
+    public void ini(MovieService iniMovieService, MFXTableView<Movie> tableView, MovieInfoController mIC, CategoryService service){
         movieService = iniMovieService;
         movieTableView = tableView;
         movieInfoController = mIC;
-
+        categoryService = service;
         setupTable();
     }
 
@@ -116,7 +118,6 @@ public class MovieTable {
         this.selectedCategory = selectedCategory;
         recreateTable();
     }
-
     public void clearTable() {
         movieTableView.getItems().clear();
     }
@@ -129,8 +130,7 @@ public class MovieTable {
         primaryStage.setScene(new Scene(root));
         primaryStage.setTitle("Add Movie");
         AddMoviePopUpController controller = loader.getController();
-        controller.init(this::recreateTable, selectedCategory);
-
+        controller.init(this::recreateTable, categoryService.getCategories());
         primaryStage.show();
     }
 
@@ -154,7 +154,7 @@ public class MovieTable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddMoviePopUp.fxml"));
             Parent root = loader.load();
             AddMoviePopUpController controller = loader.getController();
-            controller.editMovieInit( this::recreateTable,movieTableView.getSelectionModel().getSelectedValue());
+            controller.editMovieInit( this::recreateTable,movieTableView.getSelectionModel().getSelectedValue(),categoryService.getCategories());
             stage.setScene(new Scene(root));
             stage.setTitle("Edit Movie");
             stage.show();

@@ -4,12 +4,14 @@ import BE.Category;
 import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.CatMoviesLogic.DeleteCat;
+import DAL.CatMoviesLogic.InsertCat;
 import DAL.CatMoviesLogic.SelectCat;
 import DAL.CategoryLogic.SelectCategory;
 import DAL.MovieLogic.DeleteMovie;
 import DAL.MovieLogic.SelectMovie;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -28,6 +30,7 @@ public class BLLSingleton {
     private final SelectCat selectCat = new SelectCat();
     private final DeleteMovie deleteMovie = new DeleteMovie();
     private final DeleteCat deleteCat = new DeleteCat();
+    private final InsertCat insertCat = new InsertCat();
 
 
     // Private constructor to prevent instantiation from outside
@@ -85,6 +88,32 @@ public class BLLSingleton {
         }
     }
 
+    public void editMovieCategoryRelation(ArrayList<String> addToCategory, int id) throws ApplicationException {
+
+        for (String s:addToCategory) {
+            Optional<Category> categoryFilter = categories.stream()
+                    .filter(catVal -> catVal.getName().equals(s))
+                    .findFirst();
+
+            categoryFilter.ifPresent(c -> {
+                Optional<Integer> movieIdsFilter = c.getMovieIds().stream()
+                        .filter(movId -> movId == id)
+                        .findFirst();
+                if (movieIdsFilter.isEmpty()) {
+                    // ID not found, so you can print "Hello"
+                    System.out.println("Hello");
+                    c.addToMovieIds(id);
+                    try {
+                        insertCat.newCat(id, c.getId());
+                    } catch (ApplicationException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+        }
+        cleanUpCategory(addToCategory, id);
+    }
+
     // Movie Services
     public ArrayList<Movie> getMovies() {return movies;}
 
@@ -133,5 +162,28 @@ public class BLLSingleton {
             throw new RuntimeException("Error in BLL layer -> singleton", e);
         }
     }
+    private void cleanUpCategory(ArrayList<String> addToCategory, int id) throws ApplicationException {
+        ArrayList<Category> toDelete = new ArrayList<>();
+        toDelete.addAll(categories);
+        for (String s:addToCategory) {
+            Optional<Category> categoryFilter = categories.stream()
+                    .filter(catVal -> catVal.getName().equals(s))
+                    .findFirst();
+            categoryFilter.ifPresent(category -> {
+                toDelete.remove(category);
+            }
+            );
+        }
+        for (Category c:toDelete) {
+            for (int i:c.getMovieIds()) {
+                if (id == i){
+                    System.out.println(id);
+                    c.deleteFromMovieIds(id);
+                    deleteCat.removeCatMovieRelation(c.getId(),id);
+                    break;
+                }
+            }
+        }
 
+    }
 }

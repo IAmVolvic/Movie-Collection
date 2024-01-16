@@ -57,7 +57,8 @@ public class MainController implements Initializable {
         movieTableComponent.ini(
                 movieService,
                 moviesTableView,
-                movieInfoController
+                movieInfoController,
+                categoryService
         );
     }
 

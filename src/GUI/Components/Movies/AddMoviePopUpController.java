@@ -7,12 +7,19 @@ import BLL.MovieService;
 import GUI.Components.ErrorPopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXTableView;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
+import java.util.Objects;
 
 public class AddMoviePopUpController {
     // BLL Services
@@ -21,8 +28,8 @@ public class AddMoviePopUpController {
 
     // GUI Services
     private final ErrorPopUpController errorPopUp = new ErrorPopUpController();
-
-
+    @FXML
+    private MenuButton categoriesMenubtn;
     @FXML
     private MFXButton selecbtn;
 
@@ -31,8 +38,8 @@ public class AddMoviePopUpController {
     private TextField movieRatingInput;
     @FXML
     private TextField movieNameInput;
-    @FXML
-    private Category selectedCategory;
+    private ArrayList<String> addToCategory = new ArrayList<>();
+    private ArrayList<Category> categories;
     @FXML
     private Runnable selectedObject;
 
@@ -41,10 +48,11 @@ public class AddMoviePopUpController {
     private Movie editedMovie;
     private boolean editing;
 
-    public void init(Runnable runnable, Category SC){
+    public void init(Runnable runnable, ArrayList<Category> categories){
         editing=false;
         this.selectedObject = runnable;
-        selectedCategory = SC;
+        this.categories = categories;
+        setMenuBtnLogic();
     }
 
 
@@ -57,7 +65,7 @@ public class AddMoviePopUpController {
     private void addMovieAccept(ActionEvent actionEvent) throws IOException {
         if (!editing){
             // Checks
-            if (selectedCategory == null || selectedCategory.getId() < 1 || movieNameInput.getText() == null || movieNameInput.getText().trim().isEmpty() || filePath == null) {
+            if (addToCategory.isEmpty() || movieNameInput.getText() == null || movieNameInput.getText().trim().isEmpty() || filePath == null) {
                 errorPopUp.prompError(
                         "Something went wrong, please check the following \n" +
                                 "1, Make sure you have the category selected \n" +
@@ -78,8 +86,7 @@ public class AddMoviePopUpController {
 
                 return;
             };
-
-            movieService.createNewMovie(movieNameInput.getText(), filePath, movieRating, selectedCategory.getId());
+            movieService.createNewMovie(movieNameInput.getText(), filePath, movieRating, addToCategory,categories);
             selectedObject.run();
 
             // Close prompt
@@ -102,7 +109,7 @@ public class AddMoviePopUpController {
 
                 return;
             };
-            movieService.editMovie(editedMovie,new Movie(editedMovie.getId(),movieNameInput.getText(),movieRating,editedMovie.getMoviePath(),editedMovie.getLastViewed()));
+            movieService.editMovie(editedMovie,new Movie(editedMovie.getId(),movieNameInput.getText(),movieRating,editedMovie.getMoviePath(),editedMovie.getLastViewed()),addToCategory);
             selectedObject.run();
             // Close prompt
             Stage stage = (Stage) movieRatingInput.getScene().getWindow();
@@ -110,13 +117,43 @@ public class AddMoviePopUpController {
         }
     }
 
-
-    public void editMovieInit(Runnable runnabble, Movie movie){
+    public void editMovieInit(Runnable runnabble, Movie movie,ArrayList<Category> categories){
+        this.categories = categories;
         this.selectedObject = runnabble;
         editing=true;
         editedMovie = movie;
         selecbtn.disableProperty().set(true);
         movieRatingInput.setText(String.valueOf(movie.getRating()));
         movieNameInput.setText(movie.getName());
+        setMenuBtnLogic();
+    }
+
+    private void setMenuBtnLogic(){
+        categoriesMenubtn.getItems().clear();
+        EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e)
+            {
+                if (((CheckMenuItem)e.getSource()).isSelected()){
+                    addToCategory.add((((CheckMenuItem)e.getSource()).getText()));
+                }else {
+                    addToCategory.remove((((CheckMenuItem)e.getSource()).getText()));
+                }
+            }
+        };
+        for (Category c:categories) {
+            CheckMenuItem item = new CheckMenuItem(c.getName());
+            categoriesMenubtn.getItems().add(item);
+            item.setOnAction(event1);
+            checkMovieCategoryRelation(editedMovie,c,item,addToCategory);
+        }
+    }
+
+    private void checkMovieCategoryRelation(Movie movie, Category c, CheckMenuItem item, ArrayList<String> addToCategory){
+            for (int id:c.getMovieIds()) {
+                if (movie.getId() == id){
+                    item.setSelected(true);
+                    addToCategory.add(c.getName());
+                }
+            }
     }
 }

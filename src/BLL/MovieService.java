@@ -10,6 +10,7 @@ import DAL.MovieLogic.EditMovie;
 import DAL.MovieLogic.InsertMovie;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MovieService {
@@ -21,13 +22,20 @@ public class MovieService {
 
     // Create a new category
     // Create a new link between category and movie
-    public void createNewMovie(String movieName, String moviePath, Double movieRating, int categoryId) {
+    public void createNewMovie(String movieName, String moviePath, Double movieRating, ArrayList<String> categoriesName, ArrayList<Category> categories) {
         try {
             Movie createMovie = insertMovie.newMovie(movieName, moviePath, movieRating);
             single.newMovie(createMovie);
-            single.addMovieToCategory(categoryId, createMovie.getId());
+            for (String s:categoriesName) {
+                for (Category c:categories) {
+                    if (Objects.equals(s, c.getName())){
+                        single.addMovieToCategory(c.getId(), createMovie.getId());
 
-            insertCat.newCat(createMovie.getId(), categoryId);
+                        insertCat.newCat(createMovie.getId(), c.getId());
+                    }
+                }
+            }
+
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer", e);
         }
@@ -46,9 +54,10 @@ public class MovieService {
         }
     }
 
-    public void editMovie(Movie oldMovie, Movie newMovie){
+    public void editMovie(Movie oldMovie, Movie newMovie, ArrayList<String> addToCategory){
         try {
             single.editMovie(oldMovie,newMovie);
+            single.editMovieCategoryRelation(addToCategory,oldMovie.getId());
             editMovie.editMovie(oldMovie,newMovie);
         } catch (ApplicationException e) {
             throw new RuntimeException("Error in BLL layer", e);
