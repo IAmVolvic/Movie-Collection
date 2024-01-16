@@ -93,7 +93,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void playMovie(ActionEvent actionEvent) {
+    private void playMovie(ActionEvent actionEvent) throws IOException {
         movieInfoController.playMovie();
     }
 
