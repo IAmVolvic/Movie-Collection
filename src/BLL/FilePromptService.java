@@ -1,5 +1,6 @@
 package BLL;
 
+import COMMON.ApplicationException;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.stage.FileChooser;
@@ -24,23 +25,26 @@ public class FilePromptService {
 
         File getData = fileChooser.showOpenDialog(stage);
 
+        if(getData == null){
+            return null;
+        }
 
         return getData.getPath();
     }
 
-    public void playFile(String filePath){
-        try (FileChannel channel = FileChannel.open(new File(filePath).toPath(), StandardOpenOption.WRITE);
-             FileLock lock = channel.tryLock()) {
 
-            if (lock != null) {
-                // The file is not already open; you have acquired a lock
-                Desktop.getDesktop().open(new File(filePath));
-            } else {
-                System.out.println("The video is already open.");
+    public void playFile(String filePath) throws ApplicationException {
+        try {
+            File file = new File(filePath);
+
+            if (!file.exists() || !file.isFile()) {
+                // Throw an ApplicationException if the file does not exist or is not a regular file
+                throw new ApplicationException("The file either does not exist or is not a regular file.");
             }
 
+            Desktop.getDesktop().open(file);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ApplicationException("Error in BLL", e);
         }
     }
 }

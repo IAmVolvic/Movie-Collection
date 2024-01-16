@@ -7,11 +7,16 @@ import BLL.MovieService;
 import GUI.Components.Category.CategoryTable;
 import GUI.Components.MovieInfoController;
 import GUI.Components.Movies.MovieTable;
+import GUI.Components.ReminderController;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,6 +32,7 @@ public class MainController implements Initializable {
     private final CategoryTable categoryTableComponent = new CategoryTable();
     private final MovieTable movieTableComponent = new MovieTable();
     private MovieInfoController movieInfoController;
+    private ReminderController reminderController = new ReminderController();
 
     // FXML Elements
     @FXML
@@ -60,10 +66,23 @@ public class MainController implements Initializable {
                 movieInfoController,
                 categoryService
         );
+
+        try {
+            showReminder();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
-
+    private void showReminder() throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReminderPrompt.fxml"));
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Reminder");
+        stage.show();
+    }
 
     // Category Service Methods
     @FXML
@@ -94,7 +113,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    private void playMovie(ActionEvent actionEvent) {
+    private void playMovie(ActionEvent actionEvent) throws IOException {
         movieInfoController.playMovie();
     }
 
