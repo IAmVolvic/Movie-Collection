@@ -144,7 +144,9 @@ public class AddMoviePopUpController {
             CheckMenuItem item = new CheckMenuItem(c.getName());
             categoriesMenubtn.getItems().add(item);
             item.setOnAction(event1);
-            checkMovieCategoryRelation(editedMovie,c,item,addToCategory);
+            if(editing){
+                checkMovieCategoryRelation(editedMovie,c,item,addToCategory);
+            }
         }
     }
 
