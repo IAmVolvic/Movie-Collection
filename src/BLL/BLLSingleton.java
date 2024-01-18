@@ -87,8 +87,8 @@ public class BLLSingleton {
         // Convert milliseconds to years
         long yearsDifference = timeDifference / (365 * 24 * 60 * 60 * 1000);
 
-        // Check if the time difference is more than 3 years
-        return yearsDifference >= 3;
+        // Check if the time difference is more than 2 years
+        return yearsDifference >= 2;
     }
 
 

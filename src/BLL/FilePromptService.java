@@ -18,7 +18,7 @@ public class FilePromptService {
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Find A Movie");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("VIDEO FILES", "*.mp4"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("VIDEO FILES", "*.mp4", "*.mpeg4"));
 
         File getData = fileChooser.showOpenDialog(stage);
 
