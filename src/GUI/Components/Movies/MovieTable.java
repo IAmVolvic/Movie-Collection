@@ -3,6 +3,7 @@ package GUI.Components.Movies;
 
 import BE.Category;
 import BE.Movie;
+import BE.Remind;
 import BLL.CategoryService;
 import BLL.MovieService;
 import GUI.Components.Category.CategoryTable;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 public class MovieTable {
@@ -118,6 +120,7 @@ public class MovieTable {
         this.selectedCategory = selectedCategory;
         recreateTable();
     }
+
     public void clearTable() {
         movieTableView.getItems().clear();
     }
@@ -170,7 +173,6 @@ public class MovieTable {
     }
 
 
-
     private void onRowClick(MFXTableRow<Movie> row){
         if (row.getData()!=null){
             movieInfoController.setTitle(row.getData().getName());
@@ -178,5 +180,8 @@ public class MovieTable {
             movieInfoController.setMoviePath(row.getData().getMoviePath());
         }
     }
+
+
+    public ArrayList<Remind> getReminders(){ return movieService.getRemindedMovies(); }
 
 }

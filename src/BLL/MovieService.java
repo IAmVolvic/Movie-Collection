@@ -3,6 +3,7 @@ package BLL;
 
 import BE.Category;
 import BE.Movie;
+import BE.Remind;
 import COMMON.ApplicationException;
 import DAL.CatMoviesLogic.InsertCat;
 import DAL.MovieLogic.DeleteMovie;
@@ -66,4 +67,10 @@ public class MovieService {
 
     // Add connection between move and category
     public ArrayList<Movie> getMovies(){ return single.getMovies(); }
+
+
+    // Get old movies / low rated movie
+    public ArrayList<Remind> getRemindedMovies(){
+        return single.getReminds();
+    }
 }

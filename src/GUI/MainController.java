@@ -2,6 +2,7 @@ package GUI;
 
 import BE.Category;
 import BE.Movie;
+import BE.Remind;
 import BLL.CategoryService;
 import BLL.MovieService;
 import GUI.Components.Category.CategoryTable;
@@ -76,12 +77,9 @@ public class MainController implements Initializable {
 
 
     private void showReminder() throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReminderPrompt.fxml"));
-        Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Reminder");
-        stage.show();
+        if(!movieTableComponent.getReminders().isEmpty()){
+            reminderController.promptReminder(movieTableComponent.getReminders());
+        }
     }
 
     // Category Service Methods

@@ -2,6 +2,7 @@ package BLL;
 
 import BE.Category;
 import BE.Movie;
+import BE.Remind;
 import COMMON.ApplicationException;
 import DAL.CatMoviesLogic.DeleteCat;
 import DAL.CatMoviesLogic.InsertCat;
@@ -10,8 +11,10 @@ import DAL.CategoryLogic.SelectCategory;
 import DAL.MovieLogic.DeleteMovie;
 import DAL.MovieLogic.SelectMovie;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -22,7 +25,7 @@ public class BLLSingleton {
     // Global States
     private ArrayList<Category> categories;
     private ArrayList<Movie> movies;
-
+    private final ArrayList<Remind> reminds = new ArrayList<>();
 
     // DAL Ini
     private final SelectCategory selectCategory = new SelectCategory();
@@ -35,12 +38,11 @@ public class BLLSingleton {
 
     // Private constructor to prevent instantiation from outside
     private BLLSingleton() {
-        // Initialize
-        categoriesInitialize();
+        initialize();
     }
 
 
-    private void categoriesInitialize() {
+    private void initialize() {
         try {
             categories = selectCategory.getCategoryDB();
             movies = selectMovie.getMoviesDB();
@@ -48,9 +50,45 @@ public class BLLSingleton {
             for (Category c: categories) {
                 c.setMovieIds(selectCat.getCatMovieListDB(c.getId()));
             }
-        } catch (ApplicationException e) {
+
+            // Get old / low rated movies
+            for(Movie m: movies){
+                if (m.getRating() < 6 || isOldMovie(m.getLastViewed())){
+                    Remind newReminder = new Remind(m.getId(), m.getName(), m.getRating(), m.getLastViewed());
+                    reminds.add(newReminder);
+
+                    for (Category cVal: categories) {
+                        Optional<Integer> movieFilter = cVal.getMovieIds().stream()
+                                .filter(movieId -> movieId == m.getId())
+                                .findFirst();
+
+                        movieFilter.ifPresent(c -> {
+                            newReminder.addCategory(cVal.getName());
+                        });
+                    }
+                }
+            }
+
+        } catch (ApplicationException | ParseException e) {
             throw new RuntimeException("Error in BLL layer -> singleton", e);
         }
+    }
+
+
+    private boolean isOldMovie(String date) throws ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Assuming date format is "yyyy-MM-dd"
+
+        Date lastViewedDate = dateFormat.parse(date);
+        Date currentDate = new Date();
+
+        // Calculate the time difference in milliseconds
+        long timeDifference = currentDate.getTime() - lastViewedDate.getTime();
+
+        // Convert milliseconds to years
+        long yearsDifference = timeDifference / (365 * 24 * 60 * 60 * 1000);
+
+        // Check if the time difference is more than 3 years
+        return yearsDifference >= 3;
     }
 
 
@@ -114,6 +152,8 @@ public class BLLSingleton {
         cleanUpCategory(addToCategory, id);
     }
 
+
+
     // Movie Services
     public ArrayList<Movie> getMovies() {return movies;}
 
@@ -162,6 +202,7 @@ public class BLLSingleton {
             throw new RuntimeException("Error in BLL layer -> singleton", e);
         }
     }
+
     private void cleanUpCategory(ArrayList<String> addToCategory, int id) throws ApplicationException {
         ArrayList<Category> toDelete = new ArrayList<>();
         toDelete.addAll(categories);
@@ -186,4 +227,6 @@ public class BLLSingleton {
         }
 
     }
+
+    public ArrayList<Remind> getReminds(){ return reminds; }
 }

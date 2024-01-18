@@ -1,9 +1,17 @@
 package GUI.Components;
 
+import BE.Remind;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class ReminderController {
     @FXML
@@ -12,23 +20,53 @@ public class ReminderController {
     // Create an ObservableList to hold your data
     private ObservableList<String> reminderData = FXCollections.observableArrayList();
 
-    // Initialize method (you can use @FXML annotation for initialization as well)
-    public void initialize() {
+
+    private void setInit(ArrayList<Remind> selectedData) {
         // Set the ObservableList as the data source for your ListView
         reminderList.setItems(reminderData);
 
-        // You can add some initial data if needed
-        reminderData.add("Reminder 1");
-        reminderData.add("Reminder 2");
+        for(Remind data: selectedData){
+            reminderData.add(
+                "MOVE NAME: " + data.getMovieName() + "\n" +
+                "MOVE RATING: " + data.getMovieRating() + "\n" +
+                "MOVE LAST SEEN: " + data.getMovieLastSeen() + "\n" +
+                "CATEGORIES: " + buildStringWithCommas(data.getConnectedCategories())
+            );
+        }
     }
 
-    // Method to add data to the ListView
-    public void addReminder(String reminder) {
-        reminderData.add(reminder);
+
+    private static String buildStringWithCommas(ArrayList<String> dataList) {
+        StringBuilder result = new StringBuilder();
+
+        // Iterate through the elements in the ArrayList
+        for (String element : dataList) {
+            // Append the element to the result string
+            result.append(element);
+
+            // Add a comma if it's not the last element
+            if (dataList.indexOf(element) < dataList.size() - 1) {
+                result.append(", ");
+            }
+        }
+
+        // Convert StringBuilder to String
+        return result.toString();
     }
 
-    // Example of how to use the addReminder method
-    public void someMethod() {
-        addReminder("New Reminder");
+
+    public void promptReminder(ArrayList<Remind> selectedData) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ReminderPrompt.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Reminder");
+        stage.setAlwaysOnTop(true);
+
+        ReminderController controller = loader.getController();
+        controller.setInit(selectedData);
+
+        stage.show();
     }
 }
