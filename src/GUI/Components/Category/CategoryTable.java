@@ -1,7 +1,6 @@
 package GUI.Components.Category;
 
 import BE.Category;
-import BE.Movie;
 import BLL.CategoryService;
 import GUI.Components.ConfirmPopUpController;
 import GUI.Components.Movies.MovieTable;
@@ -18,10 +17,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.io.IOException;

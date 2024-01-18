@@ -6,8 +6,6 @@ import BLL.FilePromptService;
 import BLL.MovieService;
 import GUI.Components.ErrorPopUpController;
 import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXTableView;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,8 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
-import java.util.Objects;
 
 public class AddMoviePopUpController {
     // BLL Services

@@ -3,7 +3,6 @@ package GUI.Components.Category;
 import BE.Category;
 import BLL.CategoryService;
 import GUI.Components.ErrorPopUpController;
-import GUI.Components.Movies.MovieTable;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

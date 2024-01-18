@@ -3,6 +3,7 @@ package GUI.Components;
 import BE.Remind;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,5 +69,12 @@ public class ReminderController {
         controller.setInit(selectedData);
 
         stage.show();
+    }
+
+
+    @FXML
+    private void closePrompt(ActionEvent actionEvent) {
+        Stage stage = (Stage) this.reminderList.getScene().getWindow();
+        stage.close();
     }
 }

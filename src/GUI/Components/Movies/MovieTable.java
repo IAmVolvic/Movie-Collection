@@ -6,7 +6,6 @@ import BE.Movie;
 import BE.Remind;
 import BLL.CategoryService;
 import BLL.MovieService;
-import GUI.Components.Category.CategoryTable;
 import GUI.Components.ConfirmPopUpController;
 import GUI.Components.MovieInfoController;
 import io.github.palexdev.materialfx.controls.MFXTableColumn;

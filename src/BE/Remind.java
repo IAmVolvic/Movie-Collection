@@ -1,8 +1,5 @@
 package BE;
 
-import DAL.CategoryLogic.SelectCategory;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Remind {

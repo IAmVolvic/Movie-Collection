@@ -15,7 +15,7 @@
    <bottom>
       <HBox alignment="CENTER" prefHeight="58.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <MFXButton text="Close Reminder" />
+            <MFXButton onAction="#closePrompt" text="Close Reminder" />
          </children>
       </HBox>
    </bottom>

@@ -1,8 +1,5 @@
 package GUI.Components;
 
-import GUI.Components.Category.AddCategoryPopUpController;
-import GUI.Components.Movies.AddMoviePopUpController;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -2,7 +2,6 @@ package GUI;
 
 import BE.Category;
 import BE.Movie;
-import BE.Remind;
 import BLL.CategoryService;
 import BLL.MovieService;
 import GUI.Components.Category.CategoryTable;
@@ -12,12 +11,8 @@ import GUI.Components.ReminderController;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
