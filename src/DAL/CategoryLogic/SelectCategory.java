@@ -11,9 +11,9 @@ import java.util.ArrayList;
 
 public class SelectCategory {
     private final ConnectionManager cm = new ConnectionManager();
-    private final ObservableList<Category> categoryList = FXCollections.observableArrayList();
+    private final ArrayList<Category> categoryList = new ArrayList<>();
 
-    public ObservableList<Category> getCategoryDB() throws ApplicationException {
+    public ArrayList<Category> getCategoryDB() throws ApplicationException {
         try( Connection con = cm.getConnection() )
         {
             String sql = "SELECT * FROM category";

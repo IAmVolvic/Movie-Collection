@@ -1,23 +1,23 @@
-package DAL.MovieLogic;
+package DAL.CatMoviesLogic;
 
+import BE.Movie;
 import COMMON.ApplicationException;
 import DAL.ConnectionManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
-public class DeleteMovie {
+
+public class InsertCat {
     private final ConnectionManager cm = new ConnectionManager();
 
-    public void removeMovie(int movieId) throws ApplicationException {
+    public void newCat(int movieId, int categoryId) throws ApplicationException {
         try(Connection con = cm.getConnection())
         {
-            String sql = "DELETE FROM movie WHERE id = ?";
+            String sql = "INSERT INTO catMovie(categoryId, movieId) VALUES (?, ?)";
             PreparedStatement pt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            pt.setInt(1, movieId);
-            pt.executeQuery();
+            pt.setInt(1, categoryId);
+            pt.setInt(2, movieId);
+            pt.executeUpdate();
 
         } catch (SQLException e) {
             throw new ApplicationException("Error in DAL layer", e);

@@ -30,4 +30,11 @@ public class Category {
     public ArrayList<Integer> getMovieIds(){
         return movieIds;
     }
+
+    public void addToMovieIds(int id){
+        movieIds.add(id);
+    }
+    public void deleteFromMovieIds(Integer id){
+        movieIds.remove(id);
+    }
 }
